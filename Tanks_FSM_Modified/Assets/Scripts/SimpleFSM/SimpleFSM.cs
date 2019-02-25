@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 
-public class SimpleFSM : FSM 
+public class SimpleFSM : FSM
 {
     public enum FSMState
     {
@@ -11,6 +11,7 @@ public class SimpleFSM : FSM
         Chase,
         RunAway,
         Attack,
+        FreakOut,
         Dead,
     }
 
@@ -33,9 +34,14 @@ public class SimpleFSM : FSM
     // We overwrite the deprecated built-in `rigidbody` variable.
     new private Rigidbody rigidbody;
 
+    private float elapsedTime2;
+    private float freakOutTime = 4;
+
+    private bool resistsFreakOut = false;
+
 
     //Initialize the Finite state machine for the NPC tank
-    protected override void Initialize () 
+    protected override void Initialize()
     {
         curState = FSMState.Patrol;
         curSpeed = 150.0f;
@@ -58,13 +64,13 @@ public class SimpleFSM : FSM
         // Get the rigidbody
         rigidbody = GetComponent<Rigidbody>();
 
-        if(!playerTransform)
+        if (!playerTransform)
             print("Player doesn't exist.. Please add one with Tag named 'Player'");
 
         //Get the turret of the tank
         turret = gameObject.transform.GetChild(0).transform;
         bulletSpawnPoint = turret.GetChild(0).transform;
-	}
+    }
 
     //Update each frame
     protected override void FSMUpdate()
@@ -76,8 +82,9 @@ public class SimpleFSM : FSM
             case FSMState.Chase: UpdateChaseState(); break;
             case FSMState.Attack: UpdateAttackState(); break;
             case FSMState.Dead: UpdateDeadState(); break;
+            case FSMState.FreakOut: UpdateFreakOutState(); break;
         }
-        Debug.Log("State: " + curState.ToString() + ", isPoweredUp = " + playerTransform.gameObject.GetComponent<PlayerTankController>().isPoweredUp.ToString());
+        Debug.Log("State: " + curState.ToString() + ", isNotFreakedOut = " + resistsFreakOut.ToString());
 
         //Update the time
         elapsedTime += Time.deltaTime;
@@ -95,13 +102,29 @@ public class SimpleFSM : FSM
     protected void UpdateRunAwayState()
     {
         if (distanceFromPlayer() >= 300.0f)//if it's far away enough from the player
-        { 
+        {
             curState = FSMState.Patrol;//go back on patrol
         }
 
         transform.position = Vector2.MoveTowards(transform.position, playerTransform.position, -1 * curSpeed * Time.deltaTime);
         transform.position = new Vector3(transform.position.x, 0, transform.position.z);//stay on the groundddddd
     }
+
+    #region doesFreakOut
+    private bool doesFreakOut()
+    {
+        int randomInt = UnityEngine.Random.Range(0, 5);//chance it'll freak out and spin in circles
+
+        if (randomInt == 1)//if the number is 1, we don't freak out
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    #endregion
 
     /// <summary>
     /// Patrol state
@@ -119,6 +142,7 @@ public class SimpleFSM : FSM
         else if (isPoweredUp && distanceFromPlayer() < 300.0f)//if the player is powered up and close enough for enemy to see
         {
             curState = FSMState.RunAway;
+            resistsFreakOut = false;//reset our freakout bool when you go back into running
         }
 
         //Check the distance with player tank
@@ -131,7 +155,7 @@ public class SimpleFSM : FSM
 
         //Rotate to the target point
         Quaternion targetRotation = Quaternion.LookRotation(destPos - transform.position);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * curRotSpeed);  
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * curRotSpeed);
 
         //Go Forward
         transform.Translate(Vector3.forward * Time.deltaTime * curSpeed);
@@ -153,9 +177,18 @@ public class SimpleFSM : FSM
 
         if (isPoweredUp && dist < 300.0f)//first check to see if the player has a powerup
         {
-            curState = FSMState.RunAway;
+            if (doesFreakOut() && !resistsFreakOut)//if we haven't already resisted and our bool returns true
+            {
+                curState = FSMState.FreakOut;//freakout
+                resistsFreakOut = false;
+            }
+            else
+            {
+                curState = FSMState.RunAway;
+                resistsFreakOut = true;
+            }
         }
-        
+
         if (dist <= 200.0f)
         {
             curState = FSMState.Attack;
@@ -192,7 +225,7 @@ public class SimpleFSM : FSM
         {
             //Rotate to the target point
             Quaternion targetRotation = Quaternion.LookRotation(destPos - transform.position);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * curRotSpeed);  
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * curRotSpeed);
 
             //Go Forward
             transform.Translate(Vector3.forward * Time.deltaTime * curSpeed);
@@ -203,11 +236,11 @@ public class SimpleFSM : FSM
         else if (dist >= 300.0f)
         {
             curState = FSMState.Patrol;
-        }        
+        }
 
         //Always Turn the turret towards the player
         Quaternion turretRotation = Quaternion.LookRotation(destPos - turret.position);
-        turret.rotation = Quaternion.Slerp(turret.rotation, turretRotation, Time.deltaTime * curRotSpeed); 
+        turret.rotation = Quaternion.Slerp(turret.rotation, turretRotation, Time.deltaTime * curRotSpeed);
 
         //Shoot the bullets
         ShootBullet();
@@ -224,6 +257,20 @@ public class SimpleFSM : FSM
             bDead = true;
             Explode();
         }
+    }
+
+    protected void UpdateFreakOutState()
+    {
+        if (elapsedTime2 > freakOutTime)//after it's done freaking out, it goes back to patrolling
+        {
+            elapsedTime2 = 0;//reset time
+            resistsFreakOut = true;
+            curState = FSMState.Patrol;
+        }
+
+        elapsedTime2 += Time.deltaTime;
+
+        transform.Rotate(0, transform.rotation.y + 1, 0);
     }
 
     /// <summary>
@@ -246,9 +293,9 @@ public class SimpleFSM : FSM
     void OnCollisionEnter(Collision collision)
     {
         //Reduce health
-        if(collision.gameObject.tag == "Bullet")
+        if (collision.gameObject.tag == "Bullet")
             health -= collision.gameObject.GetComponent<Bullet>().damage;
-    }   
+    }
 
     /// <summary>
     /// Find the next semi-random patrol point
@@ -257,7 +304,7 @@ public class SimpleFSM : FSM
     {
         int rndIndex = UnityEngine.Random.Range(0, pointList.Length);
         float rndRadius = 10.0f;
-        
+
         Vector3 rndPosition = Vector3.zero;
         destPos = pointList[rndIndex].transform.position + rndPosition;
 

@@ -10,7 +10,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>
     </RootNamespace>
-    <ProjectGuid>{0A11D710-471A-7B2D-0781-435E2681090B}</ProjectGuid>
+    <ProjectGuid>{B81C9799-1AE3-349C-505A-F496411A412D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -114,19 +114,19 @@
     <Compile Include="Assets\ProCore\ProBuilder\Editor\pb_Preferences.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\Editor\pb_ScenePostProcessor.cs" />
     <Reference Include="Assembly-UnityScript">
-      <HintPath>C:/Users/sophi/Desktop/Unity_AI_Programming_Book_Resources/9781789533910_Code/Chapter02/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
+      <HintPath>C:/Users/sophi/Desktop/Repos/Game_AI_Repos/Tanks_FSM_Modified/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>C:/Users/sophi/Desktop/Unity_AI_Programming_Book_Resources/9781789533910_Code/Chapter02/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/sophi/Desktop/Repos/Game_AI_Repos/Tanks_FSM_Modified/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/sophi/Desktop/Unity_AI_Programming_Book_Resources/9781789533910_Code/Chapter02/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/sophi/Desktop/Repos/Game_AI_Repos/Tanks_FSM_Modified/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/sophi/Desktop/Unity_AI_Programming_Book_Resources/9781789533910_Code/Chapter02/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/sophi/Desktop/Repos/Game_AI_Repos/Tanks_FSM_Modified/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/sophi/Desktop/Unity_AI_Programming_Book_Resources/9781789533910_Code/Chapter02/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/sophi/Desktop/Repos/Game_AI_Repos/Tanks_FSM_Modified/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -390,22 +390,22 @@
       <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="ProBuilderCore-Unity5">
-      <HintPath>C:/Users/sophi/Desktop/Unity_AI_Programming_Book_Resources/9781789533910_Code/Chapter02/Assets/ProCore/ProBuilder/Classes/ProBuilderCore-Unity5.dll</HintPath>
+      <HintPath>C:/Users/sophi/Desktop/Repos/Game_AI_Repos/Tanks_FSM_Modified/Assets/ProCore/ProBuilder/Classes/ProBuilderCore-Unity5.dll</HintPath>
     </Reference>
     <Reference Include="ProBuilderMeshOps-Unity5">
-      <HintPath>C:/Users/sophi/Desktop/Unity_AI_Programming_Book_Resources/9781789533910_Code/Chapter02/Assets/ProCore/ProBuilder/Classes/ProBuilderMeshOps-Unity5.dll</HintPath>
+      <HintPath>C:/Users/sophi/Desktop/Repos/Game_AI_Repos/Tanks_FSM_Modified/Assets/ProCore/ProBuilder/Classes/ProBuilderMeshOps-Unity5.dll</HintPath>
     </Reference>
     <Reference Include="KdTreeLib">
-      <HintPath>C:/Users/sophi/Desktop/Unity_AI_Programming_Book_Resources/9781789533910_Code/Chapter02/Assets/ProCore/ProBuilder/Classes/ClassesLib/KdTreeLib.dll</HintPath>
+      <HintPath>C:/Users/sophi/Desktop/Repos/Game_AI_Repos/Tanks_FSM_Modified/Assets/ProCore/ProBuilder/Classes/ClassesLib/KdTreeLib.dll</HintPath>
     </Reference>
     <Reference Include="pb_Stl">
-      <HintPath>C:/Users/sophi/Desktop/Unity_AI_Programming_Book_Resources/9781789533910_Code/Chapter02/Assets/ProCore/ProBuilder/Classes/ClassesLib/pb_Stl.dll</HintPath>
+      <HintPath>C:/Users/sophi/Desktop/Repos/Game_AI_Repos/Tanks_FSM_Modified/Assets/ProCore/ProBuilder/Classes/ClassesLib/pb_Stl.dll</HintPath>
     </Reference>
     <Reference Include="Poly2Tri">
-      <HintPath>C:/Users/sophi/Desktop/Unity_AI_Programming_Book_Resources/9781789533910_Code/Chapter02/Assets/ProCore/ProBuilder/Classes/ClassesLib/Poly2Tri.dll</HintPath>
+      <HintPath>C:/Users/sophi/Desktop/Repos/Game_AI_Repos/Tanks_FSM_Modified/Assets/ProCore/ProBuilder/Classes/ClassesLib/Poly2Tri.dll</HintPath>
     </Reference>
     <Reference Include="ProBuilderEditor-Unity5">
-      <HintPath>C:/Users/sophi/Desktop/Unity_AI_Programming_Book_Resources/9781789533910_Code/Chapter02/Assets/ProCore/ProBuilder/Editor/ProBuilderEditor-Unity5.dll</HintPath>
+      <HintPath>C:/Users/sophi/Desktop/Repos/Game_AI_Repos/Tanks_FSM_Modified/Assets/ProCore/ProBuilder/Editor/ProBuilderEditor-Unity5.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>C:/Users/sophi/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
@@ -461,7 +461,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{4CD74DB9-449E-5D9D-C37B-1367B10919D0}</Project>
+      <Project>{601516FB-5D6F-36D6-F035-51992CB29447}</Project>
       <Name>Assembly-CSharp</Name>
     </ProjectReference>
   </ItemGroup>
